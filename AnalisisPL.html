@@ -37,6 +37,10 @@
     --color-emerald-500: oklch(69.6% 0.17 162.48);
     --color-emerald-600: oklch(59.6% 0.145 163.225);
     --color-emerald-700: oklch(50.8% 0.118 165.612);
+    --color-blue-50: oklch(97% 0.014 254.604);
+    --color-blue-100: oklch(93.2% 0.032 255.585);
+    --color-blue-200: oklch(88.2% 0.059 254.128);
+    --color-blue-600: oklch(54.6% 0.245 262.881);
     --color-indigo-50: oklch(96.2% 0.018 272.314);
     --color-indigo-100: oklch(93% 0.034 272.788);
     --color-indigo-200: oklch(87% 0.065 274.039);
@@ -372,6 +376,9 @@
   .ml-1\.5 {
     margin-left: calc(var(--spacing) * 1.5);
   }
+  .ml-2 {
+    margin-left: calc(var(--spacing) * 2);
+  }
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
   }
@@ -684,6 +691,9 @@
   .border-amber-200 {
     border-color: var(--color-amber-200);
   }
+  .border-blue-200 {
+    border-color: var(--color-blue-200);
+  }
   .border-emerald-200 {
     border-color: var(--color-emerald-200);
   }
@@ -743,6 +753,9 @@
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-black) 40%, transparent);
     }
+  }
+  .bg-blue-50 {
+    background-color: var(--color-blue-50);
   }
   .bg-emerald-50 {
     background-color: var(--color-emerald-50);
@@ -1027,6 +1040,9 @@
   .text-amber-800 {
     color: var(--color-amber-800);
   }
+  .text-blue-600 {
+    color: var(--color-blue-600);
+  }
   .text-emerald-500 {
     color: var(--color-emerald-500);
   }
@@ -1234,6 +1250,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-amber-200);
+      }
+    }
+  }
+  .hover\:bg-blue-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-blue-100);
       }
     }
   }
@@ -21026,7 +21049,7 @@
         "\u0178": "\x9F"
       };
       if (Array.isArray(arr)) arr = new Uint8Array(arr);
-      return new TextDecoder("latin1").decode(arr).replace(/[â¬âÆââ¦â â¡Ëâ°Å â¹ÅÅ½âââââ¢ââËâ¢Å¡âºÅÅ¾Å¸]/g, function(c2) {
+      return new TextDecoder("latin1").decode(arr).replace(/[€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/g, function(c2) {
         return rev[c2] || c2;
       });
     } catch (e3) {
@@ -42260,7 +42283,7 @@
       /* ignore state */
       case "meta":
       case "\u5143\u6570\u636E":
-      // TODO: <office:meta> <uof:åæ°æ®> FODS/UOF
+      // TODO: <office:meta> <uof:元数据> FODS/UOF
       case "settings":
       // TODO: <office:settings>
       case "config-item-set":
@@ -42530,7 +42553,7 @@
       case "title":
       case "\u6807\u9898":
         break;
-      // <*:title> OR <uof:æ é¢>
+      // <*:title> OR <uof:标题>
       case "desc":
         break;
       // <*:desc>
@@ -67950,6 +67973,14 @@
   var MO_S = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
   var MO_F = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   var FLAGS = { "Espa\xF1a": "\u{1F1EA}\u{1F1F8}", "Francia": "\u{1F1EB}\u{1F1F7}", "Italia": "\u{1F1EE}\u{1F1F9}", "Pa\xEDses Bajos": "\u{1F1F3}\u{1F1F1}", "UK": "\u{1F1EC}\u{1F1E7}", "Denmark": "\u{1F1E9}\u{1F1F0}", "OMNI": "\u{1F30D}" };
+  var LOOKER_URLS = {
+    "Espa\xF1a": "https://datastudio.google.com/u/0/reporting/4af4b47e-e396-435d-8a3a-047cfd45d0ca/page/p_g1m3nxoa8c",
+    "Francia": "https://datastudio.google.com/u/0/reporting/12e16fe5-2301-4bb7-959a-01c0788b7329/page/p_g1m3nxoa8c",
+    "Italia": "https://datastudio.google.com/u/0/reporting/a7af9ea3-521e-4ea8-8703-37d8a4795543/page/p_g1m3nxoa8c",
+    "UK": "https://datastudio.google.com/u/0/reporting/dc4984ff-bbf3-4c93-add5-5a84c29b7141/page/p_g1m3nxoa8c",
+    "Pa\xEDses Bajos": "https://datastudio.google.com/u/0/reporting/dc4984ff-bbf3-4c93-add5-5a84c29b7141/page/p_g1m3nxoa8c",
+    "Denmark": "https://datastudio.google.com/u/0/reporting/b65655d6-994e-48c9-89b7-35248daeae2a/page/p_g1m3nxoa8c"
+  };
   var SHORT = { "Espa\xF1a": "ES", "Francia": "FR", "Italia": "IT", "Pa\xEDses Bajos": "NL", "UK": "UK", "Denmark": "DK", "OMNI": "\u03A3 OMNI" };
   var DISPLAY_COUNTRIES = ["Espa\xF1a", "Francia", "Italia", "Pa\xEDses Bajos", "UK", "Denmark"];
   var EXCEL_NAMES = ["Espa\xF1a", "Francia", "Italia", "Paises Bajos", "UK", "Denmark"];
@@ -68916,7 +68947,17 @@ DATOS:${JSON.stringify({ entity, sumCM, ytd, cm })}`,
               " ",
               year
             ] })
-          ] })
+          ] }),
+          LOOKER_URLS[entity] && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "a",
+            {
+              href: LOOKER_URLS[entity],
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "ml-2 text-xs text-blue-600 border border-blue-200 bg-blue-50 px-3 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition flex items-center gap-1",
+              children: "Ver detalles en Looker Studio \u2197"
+            }
+          )
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center gap-2", children: [
           apiKey ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -69217,7 +69258,17 @@ DATOS:${JSON.stringify({ entity, sumCM, ytd, cm })}`,
               ytdLabel,
               " 2026"
             ] })
-          ] })
+          ] }),
+          LOOKER_URLS[entity] && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "a",
+            {
+              href: LOOKER_URLS[entity],
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "ml-2 text-xs text-blue-600 border border-blue-200 bg-blue-50 px-3 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition flex items-center gap-1",
+              children: "Ver detalles en Looker Studio \u2197"
+            }
+          )
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onClose, className: "text-xs bg-gray-100 text-gray-600 px-3 py-2 rounded-lg font-medium hover:bg-gray-200", children: "\u2715 Cerrar" })
       ] }),
@@ -69404,20 +69455,25 @@ DATOS:${JSON.stringify({ entity, sumCM, ytd, cm })}`,
     const [sumLoad, setSumLoad] = (0, import_react57.useState)(false);
     const [showManual, setShowManual] = (0, import_react57.useState)(false);
     function exportSnapshot() {
-      if (!allData?.series) {
+      if (!allData) {
         alert("Carga primero los datos del P&L antes de publicar.");
         return;
       }
       try {
-        const cssB64 = window.__CLEAN_CSS_B64__ || "";
+        let b64ToStr = function(b64) {
+          const bytes = Uint8Array.from(atob(b64), (c2) => c2.charCodeAt(0));
+          return new TextDecoder("utf-8").decode(bytes);
+        };
         const jsB64 = window.__CLEAN_JS_B64__ || "";
+        const cssB64 = window.__CLEAN_CSS_B64__ || "";
         if (!jsB64) {
-          alert("No se encontr\xF3 el bundle. Abre el AnalisisPL.html original (no el publicado) y vuelve a intentarlo.");
+          alert("No se encontr\xF3 el bundle.\nUsa el AnalisisPL.html original (no el publicado) y vuelve a intentarlo.");
           return;
         }
-        const css = atob(cssB64);
-        const js = atob(jsB64);
-        const snapshotScript = `<script>window.__ALOHAS_SNAPSHOT__ = ${JSON.stringify({ data: allData, texts })};<\/script>`;
+        const js = b64ToStr(jsB64);
+        const css = cssB64 ? b64ToStr(cssB64) : "";
+        const snapshotJSON = JSON.stringify({ data: allData, texts }).replace(/<\/script>/gi, "<\\/script>");
+        const snapshotScript = `<script>window.__ALOHAS_SNAPSHOT__ = ${snapshotJSON};<\/script>`;
         const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -69436,7 +69492,7 @@ ${js}
   <\/script>
 </body>
 </html>`;
-        const blob = new Blob([html], { type: "text/html" });
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const a2 = document.createElement("a");
         a2.href = url;
@@ -69446,10 +69502,10 @@ ${js}
         setTimeout(() => {
           document.body.removeChild(a2);
           URL.revokeObjectURL(url);
-        }, 2e3);
-        alert("\u2705 AnalisisPL.html generado en tu carpeta de Descargas.\n\nS\xFAbelo a GitHub para publicarlo.");
+        }, 3e3);
+        alert("\u2705 AnalisisPL.html descargado en tu carpeta de Descargas.\nS\xFAbelo a GitHub para publicarlo.");
       } catch (e3) {
-        alert("Error: " + e3.message);
+        alert("Error al generar: " + e3.message);
       }
     }
     function exportTexts() {
@@ -70024,7 +70080,7 @@ DATOS:${JSON.stringify(ctx)}`,
         }
       ),
       !allData ? (
-        // ââ First-run landing screen âââââââââââââââââââââââââââââââââââââââââ
+        // ── First-run landing screen ─────────────────────────────────────────
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-6 px-4", style: { fontFamily: "system-ui,sans-serif" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "text-center", children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "text-5xl mb-3", children: "\u{1F4CA}" }),
