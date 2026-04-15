@@ -67978,7 +67978,7 @@
     "Francia": "https://datastudio.google.com/u/0/reporting/12e16fe5-2301-4bb7-959a-01c0788b7329/page/p_g1m3nxoa8c",
     "Italia": "https://datastudio.google.com/u/0/reporting/a7af9ea3-521e-4ea8-8703-37d8a4795543/page/p_g1m3nxoa8c",
     "UK": "https://datastudio.google.com/u/0/reporting/dc4984ff-bbf3-4c93-add5-5a84c29b7141/page/p_g1m3nxoa8c",
-    "Pa\xEDses Bajos": "https://datastudio.google.com/u/0/reporting/dc4984ff-bbf3-4c93-add5-5a84c29b7141/page/p_g1m3nxoa8c",
+    "Pa\xEDses Bajos": "https://datastudio.google.com/u/0/reporting/f6742861-3375-4905-92df-24cd2735006b/page/p_g1m3nxoa8c",
     "Denmark": "https://datastudio.google.com/u/0/reporting/b65655d6-994e-48c9-89b7-35248daeae2a/page/p_g1m3nxoa8c"
   };
   var SHORT = { "Espa\xF1a": "ES", "Francia": "FR", "Italia": "IT", "Pa\xEDses Bajos": "NL", "UK": "UK", "Denmark": "DK", "OMNI": "\u03A3 OMNI" };
@@ -68077,6 +68077,8 @@
   }
   function fPD(v, d = 1) {
     if (v == null) return "\u2014";
+    if (v > 9.99) return "+\u221E";
+    if (v < -9.99) return "-\u221E";
     return (v >= 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
   }
   function clr(v) {
@@ -68805,8 +68807,16 @@ ${names}`);
     const isAbsolute = !["rbe", "gm1_val", "gm2_val"].includes(group.key);
     const displayVal = val != null ? isAbsolute ? esKAbs(val) : esK(val) : "\u2014";
     const displayLM = lmV != null ? isAbsolute ? esKAbs(lmV) : esK(lmV) : "\u2014";
-    let varPct = null;
-    if (val != null && lmV != null && lmV !== 0) varPct = (val - lmV) / Math.abs(lmV);
+    let varPct = null, isGood = false;
+    if (val != null && lmV != null && lmV !== 0) {
+      if (val < 0 && lmV < 0 && !["rbe", "gm1_val", "gm2_val"].includes(group.key)) {
+        varPct = (Math.abs(val) - Math.abs(lmV)) / Math.abs(lmV);
+        isGood = varPct < 0;
+      } else {
+        varPct = (val - lmV) / Math.abs(lmV);
+        isGood = varPct >= 0;
+      }
+    }
     const ytdVal = computeYTDLine(monthly, 2026, month, entity, group.key);
     const displayYTD = ytdVal != null ? isAbsolute ? esKAbs(ytdVal) : esK(ytdVal) : "\u2014";
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: `rounded-xl border overflow-hidden ${hl ? "border-emerald-200" : "border-gray-100"}`, children: [
@@ -68832,7 +68842,7 @@ ${names}`);
               "LM: ",
               displayLM
             ] }),
-            varPct != null && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `text-xs font-semibold px-1.5 py-0.5 rounded ${varPct >= 0 ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`, children: fPD(varPct) }),
+            varPct != null && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `text-xs font-semibold px-1.5 py-0.5 rounded ${isGood ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`, children: fPD(varPct) }),
             ytdVal != null && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "text-xs text-gray-500 font-medium", children: [
               "YTD: ",
               displayYTD
